@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Account - Suntek Axpress</title>
+        <link rel="icon" type="image/png" href="images/logo.png">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="images/logo.png" alt="Suntek Axpress Logo" class="logo-img">
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="pages/privacy.html" class="nav-link">Privacy</a>
+                </li>
+                <li class="nav-item">
+                    <a href="pages/contact.html" class="nav-link">Contact Us</a>
+                </li>
+                <li class="nav-item">
+                    <a href="delete-account.html" class="nav-link delete-btn-nav active">Delete Account</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Delete Account Section -->
+    <section class="delete-account-section">
+        <div class="delete-account-container">
+            <div class="delete-account-card">
+                <div class="delete-card-header">
+                    <img src="images/logo.png" alt="Suntek Axpress Logo" class="delete-card-logo">
+                    <h2 class="delete-card-brand">Suntek Axpress India Limited</h2>
+                </div>
+                <h1 class="delete-account-title">Delete Account</h1>
+                <p class="delete-account-subtitle">
+                    Please provide your employee information to proceed with account deletion.
+                </p>
+
+                <form id="deleteForm" class="delete-form">
+                    <div class="form-group">
+                        <label for="empId">Employee ID *</label>
+                        <input type="text" id="empId" name="empId" required placeholder="Enter your employee ID">
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="confirmDelete" name="confirmDelete" required>
+                            I confirm
+                        </label>
+                    </div>
+
+                    <button type="submit" class="delete-btn" id="deleteBtn" disabled>
+                        <i class="fas fa-trash-alt"></i> Delete Account
+                    </button>
+                </form>
+
+                <div class="loading-spinner" id="loading">
+                    <div class="spinner"></div>
+                </div>
+
+                <div class="result-message" id="message"></div>
+
+                <a href="index.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="images/logo.png" alt="Suntek Axpress Logo" class="footer-logo-img">
+                </div>
+                <p class="footer-description">
+                    Suntek Axpress is one of the fastest growing multi-modal logistics service providers in India offering the most innovative and integrated solutions framework to save time and cost.
+                </p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <div class="contact-details">
+                    <p><i class="fas fa-map-marker-alt"></i> Plot No. 547-L, Pace City II, Sector 37, Gurugram-122004, Haryana, India</p>
+                    <p><i class="fas fa-phone"></i> <a href="tel:01244376327">0124-4376327</a></p>
+                    <p><i class="fas fa-envelope"></i> <a href="mailto:info@suntekaxpress.in">info@suntekaxpress.in</a></p>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Useful Links</h4>
+                <ul class="useful-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="pages/privacy.html">Privacy Policy</a></li>
+                    <li><a href="pages/contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Connect With Us</h4>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/suntekaxpress/" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/company/suntek-axpress/" target="_blank" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://x.com/Suntek_Axpress" target="_blank" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.facebook.com/SuntekAxpress/" target="_blank" class="social-link"><i class="fab fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="footer-bottom-container">
+                <p>&copy; 2024 Suntek Axpress. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="pages/privacy.html">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Delete Account Form JavaScript
+        const form = document.getElementById('deleteForm');
+        const deleteBtn = document.getElementById('deleteBtn');
+        const loading = document.getElementById('loading');
+        const message = document.getElementById('message');
+        const confirmCheckbox = document.getElementById('confirmDelete');
+
+        // API Configuration - Production Ready
+        const API_BASE_URL = window.location.origin;  // Get the current server's URL
+        const API_ENDPOINT = '/api/HRMS/accountdelete';
+        
+        console.log('API Base URL:', API_BASE_URL);
+        console.log('API Endpoint:', API_ENDPOINT);
+        console.log('Full API URL:', `${API_BASE_URL}${API_ENDPOINT}`);
+
+        // Show message function
+        function showMessage(text, type) {
+            message.textContent = text;
+            message.className = `result-message ${type}`;
+            message.style.display = 'block';
+        }
+
+        // Hide message function
+        function hideMessage() {
+            message.style.display = 'none';
+        }
+
+        // Show/hide loading
+        function setLoading(show) {
+            loading.style.display = show ? 'flex' : 'none';
+            deleteBtn.style.display = show ? 'none' : 'block';
+            form.style.opacity = show ? '0.5' : '1';
+        }
+
+        // Use Employee ID directly as login_id
+        function getLoginId(empId) {
+            return empId;
+        }
+
+        // Checkbox functionality
+
+        confirmCheckbox.addEventListener('change', function() {
+            deleteBtn.disabled = !this.checked;
+        });
+
+        // Form submission handler
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const empId = document.getElementById('empId').value;
+            const confirmDelete = document.getElementById('confirmDelete').checked;
+
+            // Basic validation
+            if (!empId) {
+                showMessage('Please enter your Employee ID.', 'error');
+                return;
+            }
+
+            if (!confirmDelete) {
+                showMessage('Please check the confirmation checkbox.', 'error');
+                return;
+            }
+
+            // Show confirmation popup
+            const confirmed = confirm('Are you sure you want to delete your account? This action cannot be undone.');
+            if (!confirmed) {
+                return;
+            }
+
+            // Use Employee ID as login_id
+            const loginId = getLoginId(empId);
+
+            // Prepare request data
+            const requestData = {
+                login_id: loginId,
+                method: "accountdelete"
+            };
+
+            console.log('Sending request:', requestData);
+
+            try {
+                setLoading(true);
+                hideMessage();
+
+                console.log('Making API request to:', `${API_BASE_URL}${API_ENDPOINT}`);
+                const response = await fetch(`${API_BASE_URL}${API_ENDPOINT}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestData)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                console.log('API Response:', result);
+
+                if (result.status === 'true') {
+                    showMessage(`Account deleted successfully! Employee ID: ${loginId}`, 'success');
+                    form.reset();
+                    deleteBtn.disabled = true;
+                    
+                    // Show notification
+                    if (window.showNotification) {
+                        window.showNotification('Account deleted successfully!', 'success');
+                    }
+                } else {
+                    showMessage(`Failed to delete account. ${result.method || 'Unknown error'}`, 'error');
+                    
+                    // Show notification
+                    if (window.showNotification) {
+                        window.showNotification('Failed to delete account', 'error');
+                    }
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+                console.error('Error details:', error.message);
+                
+                let errorMessage = 'Network error. Please check your connection and try again.';
+                
+                if (error.message.includes('Failed to fetch')) {
+                    errorMessage = 'Cannot connect to server. Please check if the API server is running.';
+                } else if (error.message.includes('CORS')) {
+                    errorMessage = 'CORS error. Please check server configuration.';
+                } else if (error.message.includes('404')) {
+                    errorMessage = 'API endpoint not found. Please check the URL.';
+                }
+                
+                showMessage(errorMessage, 'error');
+                
+                // Show notification
+                if (window.showNotification) {
+                    window.showNotification('Network error occurred', 'error');
+                }
+            } finally {
+                setLoading(false);
+            }
+        });
+
+        // Clear message when user starts typing
+        document.getElementById('empId').addEventListener('input', hideMessage);
+    </script>
+</body>
+</html> 
