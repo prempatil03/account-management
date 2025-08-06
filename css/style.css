@@ -1044,6 +1044,38 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    /* Delete Account Page Mobile Fixes */
+    .delete-account-container {
+        padding: 0 15px;
+        width: 100%;
+    }
+
+    .delete-account-card {
+        padding: 30px 20px;
+    }
+
+    .delete-account-title {
+        font-size: 24px;
+    }
+
+    .delete-card-logo {
+        height: 50px;
+    }
+
+    .delete-card-brand {
+        font-size: 18px;
+    }
+
+    .form-group input {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .checkbox-label {
+        font-size: 14px;
+    }
+
+    /* Navigation Mobile Styles */
     .hamburger {
         display: flex;
     }
@@ -1182,6 +1214,46 @@ body {
 }
 
 @media (max-width: 480px) {
+    /* Delete Account Page Small Mobile Fixes */
+    .delete-account-container {
+        padding: 0 10px;
+    }
+
+    .delete-account-card {
+        padding: 25px 15px;
+    }
+
+    .delete-account-title {
+        font-size: 22px;
+    }
+
+    .delete-card-logo {
+        height: 45px;
+    }
+
+    .delete-card-brand {
+        font-size: 16px;
+    }
+
+    .form-group label {
+        font-size: 13px;
+    }
+
+    .form-group input {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .checkbox-label {
+        font-size: 13px;
+    }
+
+    .delete-btn {
+        padding: 12px 25px;
+        font-size: 14px;
+    }
+
+    /* General Mobile Navigation */
     .nav-container {
         padding: 0 15px;
     }
